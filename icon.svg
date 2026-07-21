@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="20" fill="#3f7a34"/>
+  <circle cx="38" cy="50" r="16" fill="#f2efe6"/>
+  <circle cx="30" cy="42" r="6" fill="#f2efe6"/><circle cx="40" cy="38" r="7" fill="#f2efe6"/><circle cx="48" cy="44" r="6" fill="#f2efe6"/>
+  <circle cx="34" cy="50" r="1.8" fill="#3a2a18"/><circle cx="42" cy="50" r="1.8" fill="#3a2a18"/>
+  <path d="M34 56 q4 4 8 0" stroke="#3a2a18" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <circle cx="66" cy="66" r="12" fill="#5a5450"/>
+  <circle cx="60" cy="60" r="5" fill="#5a5450"/><circle cx="68" cy="57" r="5.5" fill="#5a5450"/><circle cx="74" cy="62" r="4.5" fill="#5a5450"/>
+  <circle cx="63" cy="65" r="1.6" fill="#f2efe6"/><circle cx="69" cy="65" r="1.6" fill="#f2efe6"/>
+  <path d="M63 70 q3 3 6 0" stroke="#f2efe6" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="50" y="24" font-size="13" text-anchor="middle" fill="#eafadf" font-family="sans-serif">羊群歸圈</text>
+</svg>

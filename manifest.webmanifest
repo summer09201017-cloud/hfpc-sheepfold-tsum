@@ -1,0 +1,18 @@
+{
+  "name": "羊群歸圈・聽牧人的聲音",
+  "short_name": "羊群歸圈",
+  "description": "各色小羊聽牧人的聲音——連起同款,一隻一隻領回羊圈,一隻也不失落!(約10,和合本)",
+  "start_url": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#1c3a22",
+  "theme_color": "#3f7a34",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
