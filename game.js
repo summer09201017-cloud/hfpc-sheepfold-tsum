@@ -26,14 +26,18 @@ var TYPES = [
   {id:'s3', name:'青灰羊', c1:'#8fa8b8', c2:'#5f7d90', fc:'#dde6ec', ec:'#3a2a18', bell:true},
   {id:'s4', name:'蜜色羊', c1:'#f0b95c', c2:'#cf8f30', fc:'#f8e2b8', ec:'#3a2a18', flower:true},
   {id:'s5', name:'花斑羊', c1:'#ece5d4', c2:'#c4baa4', fc:'#e8d5c0', ec:'#3a2a18', spots:true},
-  {id:'s6', name:'粉雲羊', c1:'#f4b8c8', c2:'#d488a0', fc:'#fbe4ea', ec:'#3a2a18', bow:true}
+  {id:'s6', name:'粉雲羊', c1:'#f4b8c8', c2:'#d488a0', fc:'#fbe4ea', ec:'#3a2a18', bow:true},
+  // 07-22 擴充:更多羊種(使用者點名),一樣「顏色拉開+形狀記號」
+  {id:'s7', name:'圍巾羊', c1:'#efe2c0', c2:'#c8b890', fc:'#f4e8d0', ec:'#3a2a18', scarf:true},
+  {id:'s8', name:'小帽羊', c1:'#eef2f4', c2:'#bcc8d0', fc:'#e8dcc8', ec:'#3a2a18', hat:true},
+  {id:'s9', name:'星星羊', c1:'#cfc8e8', c2:'#a49ac4', fc:'#ece4f2', ec:'#3a2a18', star:true}
 ];
 
 // ---------- 年齡三檔(kid-age-modes);target=隻數,幼幼向所以整體最短 ----------
 var MODES = {
   young:{ label:'幼幼(4-6)', types:4, minChain:2, target:35,  r:47 },
-  kid:  { label:'兒童(7-11)', types:6, minChain:3, target:100, r:38 },
-  teen: { label:'青少年(12+)', types:7, minChain:4, target:150, r:32 }
+  kid:  { label:'兒童(7-11)', types:7, minChain:3, target:110, r:38 },
+  teen: { label:'青少年(12+)', types:10, minChain:4, target:180, r:32 }
 };
 var modeKey = 'kid';
 try{ modeKey = localStorage.getItem('sheepfold-mode') || 'kid'; }catch(e){}
@@ -114,7 +118,7 @@ function rnd(a,b){ return a + Math.random()*(b-a); }
 function spawnTsum(){
   var ts = activeTypes(), t, x;
   // 07-22:群聚生成——45% 抄場上隨機一顆的型別、落在它附近,讓 5+ 長鏈自然可達(鏈長本無上限,是密度不夠)
-  var anchor = tsums.length && Math.random() < 0.45 ? tsums[(Math.random()*tsums.length)|0] : null;
+  var anchor = playing && tsums.length && Math.random() < 0.45 ? tsums[(Math.random()*tsums.length)|0] : null;   // 07-22:開場鋪場不群聚(會滾雪球整片同色),只在補球時群聚
   if (anchor && !anchor.t.wild){
     t = anchor.t;
     x = Math.max(M.r+6, Math.min(W-M.r-6, anchor.x + rnd(-70,70)));
@@ -391,6 +395,24 @@ function drawTsum(t, xx, yy, rr){
     }
     ctx.fillStyle = '#f5c542';
     ctx.beginPath(); ctx.arc(x+r*0.62, y-r*0.62, r*0.07, 0, 7); ctx.fill();
+  }
+  if (ty.scarf){                                // 圍巾羊:紅圍巾+垂帶
+    ctx.strokeStyle = '#d84848'; ctx.lineWidth = Math.max(3, r*0.18); ctx.lineCap='round';
+    ctx.beginPath(); ctx.arc(x, y+r*0.18, r*0.52, 0.35, Math.PI-0.35); ctx.stroke();
+    ctx.fillStyle = '#d84848';
+    ctx.fillRect(x+r*0.3, y+r*0.42, r*0.16, r*0.36);
+  }
+  if (ty.hat){                                  // 小帽羊:藍色小圓帽+絨球
+    ctx.fillStyle = '#4878d8';
+    ctx.beginPath(); ctx.arc(x+r*0.02, y-r*0.7, r*0.32, Math.PI, 0); ctx.fill();
+    ctx.fillRect(x-r*0.34, y-r*0.74, r*0.72, r*0.1);
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath(); ctx.arc(x+r*0.02, y-r*1.0, r*0.09, 0, 7); ctx.fill();
+  }
+  if (ty.star){                                 // 星星羊:身上金星
+    ctx.fillStyle = '#e8a818';
+    ctx.font = 'bold ' + Math.max(10, r*0.5) + 'px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('★', x+r*0.42, y+r*0.5);
   }
   ctx.restore();
 }
