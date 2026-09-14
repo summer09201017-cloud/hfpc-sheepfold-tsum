@@ -1,5 +1,5 @@
-var CACHE_NAME = 'sheepfold-tsum-v19';
-var SHELL = ['./', './index.html', './game.js', './manifest.webmanifest',
+var CACHE_NAME = 'sheepfold-tsum-v20';
+var SHELL = ['./', './game.js', './manifest.webmanifest',
              './voice/intro.mp3', './voice/bless.mp3', './voice/win.mp3'];
 self.addEventListener('install', function(e){
   e.waitUntil(caches.open(CACHE_NAME).then(function(c){
@@ -20,7 +20,11 @@ self.addEventListener('fetch', function(e){
       var copy = res.clone();
       if (res.ok) caches.open(CACHE_NAME).then(function(c){ c.put(e.request, copy); });
       return res;
-    }).catch(function(){ return hit; });
+    }).catch(function(){
+      // 離線退路(2026-09-14):導覽請求退回殼層 './'。名單不放 ./index.html —— CF 把 /index.html 308 到 /,
+      // 快取到 redirected 回應、導覽拿到就 ERR_FAILED;/index.html 在快取永遠撲空,所以離線要改拿 './'。
+      return hit || (e.request.mode === 'navigate' ? caches.match('./') : undefined);
+    });
   }));
 });
 
