@@ -1,4 +1,4 @@
-var CACHE_NAME = 'sheepfold-tsum-v20';
+var CACHE_NAME = 'sheepfold-tsum-v21';
 var SHELL = ['./', './game.js', './manifest.webmanifest',
              './voice/intro.mp3', './voice/bless.mp3', './voice/win.mp3'];
 self.addEventListener('install', function(e){
